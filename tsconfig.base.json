@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "rootDir": ".",
+    "target": "esnext",
+    "sourceMap": true,
+    "declaration": true,
+    "module": "preserve",
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "declarationMap": true,
+    "skipDefaultLibCheck": true,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "typeRoots": ["node_modules/@types"],
+    "paths": {
+      "@core": ["./packages/core/src/index.ts"],
+      "@react": ["./packages/react/src/index.ts"]
+    }
+  }
+}
