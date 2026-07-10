@@ -17,7 +17,8 @@
     "typeRoots": ["node_modules/@types"],
     "paths": {
       "@core": ["./packages/core/src/index.ts"],
-      "@react": ["./packages/react/src/index.ts"]
+      "@redge/gridstack": ["./packages/gridstack/src/index.ts"],
+      "@redge/types": ["./packages/types/src/index.ts"]
     }
   }
 }

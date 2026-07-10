@@ -1,0 +1,16 @@
+@use './variables' as *;
+
+.gridstack {
+  &__root {
+    position: relative;
+    box-sizing: content-box;
+    border: $border-width-1 solid $border;
+    border-radius: $radius;
+    background-color: $background;
+    width: var(--gridstack-grid-width);
+    min-width: 100%;
+    height: var(--gridstack-grid-height);
+    min-height: 100%;
+    overflow: hidden;
+  }
+}
