@@ -3,7 +3,7 @@
 .gridstack {
   &__item {
     position: absolute;
-    box-sizing: content-box;
+    box-sizing: border-box;
     border: $border-width-1 solid $border;
     border-radius: $radius;
     background-color: $background;
