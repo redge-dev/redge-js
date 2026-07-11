@@ -1,6 +1,6 @@
 import type { Merge } from '@redge/types';
-import { useCallback, useMemo, useState, type ComponentProps, type CSSProperties } from 'react';
-import { cn, measure, mergeRefs } from '../utils';
+import { useCallback, useMemo, useState, type ComponentProps } from 'react';
+import { cn, measure, mergeRefs, toPx } from '../utils';
 import {
   GridStackContext,
   type TGridStackContextMethods,
@@ -12,11 +12,17 @@ import { estimateItemSize } from '../components/item/utils/estimate-item-size';
 import { useResizeObserver } from '../hooks';
 import '../styles/index.scss';
 import { calculateGridComponentsDimensions } from '../utils/calculate-grid-components-dimensions/calculate-grid-components-dimensions';
-import { toPx } from '../utils/to-px/to-px';
 
 export type GridStackProps = Merge<GridStackConfiguration, ComponentProps<'div'>>;
 
-export const GridStack = ({ ref, width, height, className, ...props }: GridStackProps) => {
+export const GridStack = ({
+  ref,
+  width,
+  height,
+  children,
+  className,
+  ...props
+}: GridStackProps) => {
   const [element, setElement] = useState<HTMLDivElement | null>(null);
   const [context, setContext] = useState<TGridStackContextState>(() => {
     const configuration = { width, height };
@@ -76,17 +82,17 @@ export const GridStack = ({ ref, width, height, className, ...props }: GridStack
         [context, registerItemToGrid],
       )}
     >
-      <div
-        ref={mergeRefs(ref, setElement)}
-        className={cn('gridstack__root', className)}
-        style={
-          {
-            '--gridstack-grid-width': toPx(context.dimension.grid.width),
-            '--gridstack-grid-height': toPx(context.dimension.grid.height),
-          } as CSSProperties
-        }
-        {...props}
-      />
+      <div ref={mergeRefs(ref, setElement)} className={cn('gridstack__root', className)} {...props}>
+        <div
+          style={{
+            position: 'relative',
+            width: toPx(context.dimension.grid.width),
+            height: toPx(context.dimension.grid.height),
+          }}
+        >
+          {children}
+        </div>
+      </div>
     </GridStackContext>
   );
 };

@@ -1,13 +1,11 @@
 @use './variables' as *;
 
 .gridstack {
-  &__root {
-    position: relative;
-    box-sizing: border-box;
+  &__item {
+    position: absolute;
+    box-sizing: content-box;
     border: $border-width-1 solid $border;
     border-radius: $radius;
     background-color: $background;
-    padding: $spacing-4;
-    overflow: hidden;
   }
 }
