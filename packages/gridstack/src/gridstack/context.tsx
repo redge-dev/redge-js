@@ -4,6 +4,10 @@ import type { Dimension, ViewportPosition } from '../types';
 import type { GridStackConfiguration } from './types';
 
 export type TGridStackContextState = {
+  /**
+   * The GridStack's container element
+   */
+  element: HTMLDivElement | null;
   configuration: GridStackConfiguration;
   dimension: {
     grid: Dimension;

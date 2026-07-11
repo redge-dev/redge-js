@@ -28,6 +28,7 @@ export const GridStack = ({
   const [context, setContext] = useState<TGridStackContextState>(() => {
     const configuration = { width, height };
     return {
+      element,
       configuration,
       items: new Map(),
       dimension: calculateGridComponentsDimensions(measure(element), configuration),
@@ -79,8 +80,9 @@ export const GridStack = ({
         () => ({
           ...context,
           registerItemToGrid,
+          element: element?.children.item(0) as HTMLDivElement | null,
         }),
-        [context, registerItemToGrid],
+        [context, element, registerItemToGrid],
       )}
     >
       <CoordinatesProvider>

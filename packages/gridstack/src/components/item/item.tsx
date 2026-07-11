@@ -1,14 +1,15 @@
 import type { Merge } from '@redge/types';
 import { useId, type ComponentProps } from 'react';
-import { useItem, useRegisterItemToGrid } from '../../hooks';
-import { cn } from '../../utils';
+import { useDraggable, useItem, useRegisterItemToGrid } from '../../hooks';
+import { cn, mergeRefs } from '../../utils';
 import type { GridStackItemConfiguration } from './types';
 
 export type ItemProps = Merge<ComponentProps<'div'>, GridStackItemConfiguration>;
 
-export const Item = ({ x, y, width, style, height, className, ...props }: ItemProps) => {
+export const Item = ({ x, y, ref, width, style, height, className, ...props }: ItemProps) => {
   const id = `gs-item-${useId()}`;
   const item = useItem(id);
+  const { ref: dragRef } = useDraggable();
 
   useRegisterItemToGrid(id, {
     x,
@@ -29,6 +30,7 @@ export const Item = ({ x, y, width, style, height, className, ...props }: ItemPr
         height: item.dimension.height,
         ...style,
       }}
+      ref={mergeRefs(dragRef, ref)}
       className={cn('gridstack__item', className)}
       {...props}
     />

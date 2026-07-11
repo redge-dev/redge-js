@@ -1,1 +1,1 @@
-export const toPx = (value: number) => (isFinite(value) ? `${value}px` : 0);
+export const toPx = (value: number) => (isFinite(value) ? `${value}px` : '0');

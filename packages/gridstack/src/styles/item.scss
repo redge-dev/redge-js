@@ -7,5 +7,30 @@
     border: $border-width-1 solid $border;
     border-radius: $radius;
     background-color: $background;
+
+    &--cloned {
+      z-index: 0;
+      border-radius: $radius;
+      border-color: color-mix(in srgb, $warning 30%, transparent 100%);
+      background-color: color-mix(in srgb, $warning 30%, transparent 100%);
+    }
+
+    &[aria-roledescription='draggable'] {
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+      cursor: grab;
+
+      &[aria-grabbed='true'] {
+        transform-origin: var(--gridstack-draggable-transform-origin);
+        translate: var(--gridstack-draggable-translate);
+        z-index: 1;
+        transition:
+          box-shadow 0.2s ease,
+          opacity 0.2s ease;
+        cursor: grabbing;
+      }
+    }
   }
 }
