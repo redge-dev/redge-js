@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import type { GridStackItemConfiguration } from '../components/item/types';
-import type { Dimension, Position } from '../types';
+import type { Dimension, ViewportPosition } from '../types';
 import type { GridStackConfiguration } from './types';
 
 export type TGridStackContextState = {
@@ -12,8 +12,8 @@ export type TGridStackContextState = {
   items: Map<
     string,
     {
-      position: Position;
       dimension: Dimension;
+      position: ViewportPosition;
       configuration: GridStackItemConfiguration;
     }
   >;

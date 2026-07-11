@@ -3,7 +3,7 @@ export type Dimension = {
   height: number;
 };
 
-export type Position = {
+export type ViewportPosition = {
   top: number;
   left: number;
 };
