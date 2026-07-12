@@ -13,13 +13,18 @@
       border-radius: $radius;
       border-color: color-mix(in srgb, $warning 30%, transparent 100%);
       background-color: color-mix(in srgb, $warning 30%, transparent 100%);
+      transition:
+        top 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+        left 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
     }
 
     &[aria-roledescription='draggable'] {
       transition:
-        transform 0.25s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
+        transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.2s cubic-bezier(0.25, 1, 0.5, 1);
       cursor: grab;
 
       &[aria-grabbed='true'] {
@@ -27,8 +32,8 @@
         translate: var(--gridstack-draggable-translate);
         z-index: 1;
         transition:
-          box-shadow 0.2s ease,
-          opacity 0.2s ease;
+          box-shadow 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+          opacity 0.2s cubic-bezier(0.25, 1, 0.5, 1);
         cursor: grabbing;
       }
     }

@@ -1,17 +1,20 @@
 import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { measure, toPx } from '../utils';
+import { useGridCoordinates } from './use-grid-coordinates';
 import { useGridStack } from './use-grid-stack';
 
 const registry = new Set<HTMLElement>();
 
 export const useDraggable = () => {
-  const { element } = useGridStack();
   const currentDraggingElement = useRef<HTMLElement | null>(null);
   const currentClonedElement = useRef<HTMLElement | null>(null);
   const originalGrabbedCoordinates = useRef<{
     x: number;
     y: number;
   } | null>(null);
+
+  const { element } = useGridStack();
+  const { snapViewportCoordinatesToGridCoordinates } = useGridCoordinates();
 
   const ref = useCallback((element: HTMLElement | null) => {
     if (!element) return () => void 0;
@@ -94,22 +97,37 @@ export const useDraggable = () => {
     currentClonedElement.current = null;
   }, []);
 
-  const drag = useCallback((event: MouseEvent) => {
-    if (!currentDraggingElement.current) return;
+  const drag = useCallback(
+    (event: MouseEvent) => {
+      if (!currentDraggingElement.current || !currentClonedElement.current) return;
 
-    if (!originalGrabbedCoordinates.current) return;
+      if (!originalGrabbedCoordinates.current) return;
 
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
 
-    const moveX = mouseX - originalGrabbedCoordinates.current.x;
-    const moveY = mouseY - originalGrabbedCoordinates.current.y;
+      const closestGridCoordinates = snapViewportCoordinatesToGridCoordinates(mouseX, mouseY, 1, 1);
 
-    currentDraggingElement.current.style.setProperty(
-      '--gridstack-draggable-translate',
-      `${toPx(moveX)} ${toPx(moveY)} 0`,
-    );
-  }, []);
+      const moveX = mouseX - originalGrabbedCoordinates.current.x;
+      const moveY = mouseY - originalGrabbedCoordinates.current.y;
+
+      console.log(closestGridCoordinates.grid);
+
+      currentClonedElement.current.style.setProperty(
+        'top',
+        toPx(closestGridCoordinates.viewport.top),
+      );
+      currentClonedElement.current.style.setProperty(
+        'left',
+        toPx(closestGridCoordinates.viewport.left),
+      );
+      currentDraggingElement.current.style.setProperty(
+        '--gridstack-draggable-translate',
+        `${toPx(moveX)} ${toPx(moveY)} 0`,
+      );
+    },
+    [snapViewportCoordinatesToGridCoordinates],
+  );
 
   useLayoutEffect(() => {
     window.document.addEventListener('mousedown', beginDrag, { capture: true });

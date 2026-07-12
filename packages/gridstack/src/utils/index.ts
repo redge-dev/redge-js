@@ -1,3 +1,4 @@
+export * from './bisect-left/bisect-left';
 export * from './cn/cn';
 export * from './measure/measure';
 export * from './merge-refs/merge-refs';

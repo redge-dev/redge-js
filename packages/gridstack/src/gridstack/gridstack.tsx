@@ -10,7 +10,6 @@ import type { GridStackConfiguration } from './types';
 
 import { estimateItemSize } from '../components/item/utils/estimate-item-size';
 import { useResizeObserver } from '../hooks';
-import { CoordinatesProvider } from '../plugins';
 import '../styles/index.scss';
 import { calculateGridComponentsDimensions } from '../utils/calculate-grid-components-dimensions/calculate-grid-components-dimensions';
 
@@ -85,23 +84,17 @@ export const GridStack = ({
         [context, element, registerItemToGrid],
       )}
     >
-      <CoordinatesProvider>
+      <div ref={mergeRefs(ref, setElement)} className={cn('gridstack__root', className)} {...props}>
         <div
-          ref={mergeRefs(ref, setElement)}
-          className={cn('gridstack__root', className)}
-          {...props}
+          style={{
+            position: 'relative',
+            width: toPx(context.dimension.grid.width),
+            height: toPx(context.dimension.grid.height),
+          }}
         >
-          <div
-            style={{
-              position: 'relative',
-              width: toPx(context.dimension.grid.width),
-              height: toPx(context.dimension.grid.height),
-            }}
-          >
-            {children}
-          </div>
+          {children}
         </div>
-      </CoordinatesProvider>
+      </div>
     </GridStackContext>
   );
 };
