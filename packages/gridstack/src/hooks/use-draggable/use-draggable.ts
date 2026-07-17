@@ -1,11 +1,13 @@
 import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
-import { measure, toPx } from '../utils';
-import { useGridCoordinates } from './use-grid-coordinates';
-import { useGridStack } from './use-grid-stack';
+import { measure, toPx } from '../../utils';
+import { useGridCoordinates } from '../use-grid-coordinates';
+import { useGridStack } from '../use-grid-stack';
+import { useItem } from '../use-item';
+import { setAttributes } from './utils/set-attributes';
 
 const registry = new Set<HTMLElement>();
 
-export const useDraggable = () => {
+export const useDraggable = (id: string) => {
   const currentDraggingElement = useRef<HTMLElement | null>(null);
   const currentClonedElement = useRef<HTMLElement | null>(null);
   const originalGrabbedCoordinates = useRef<{
@@ -13,6 +15,7 @@ export const useDraggable = () => {
     y: number;
   } | null>(null);
 
+  const item = useItem(id);
   const { element } = useGridStack();
   const { snapViewportCoordinatesToGridCoordinates } = useGridCoordinates();
 
@@ -42,6 +45,7 @@ export const useDraggable = () => {
       currentDraggingElement.current = event.target as HTMLElement | null;
       currentClonedElement.current = createClone();
       if (
+        !item ||
         !currentDraggingElement.current ||
         !registry.has(currentDraggingElement.current) ||
         !currentClonedElement.current
@@ -60,6 +64,10 @@ export const useDraggable = () => {
       };
 
       currentDraggingElement.current.setAttribute('aria-pressed', 'true');
+      setAttributes(currentDraggingElement.current).gridCoordinates(
+        item.configuration.x,
+        item.configuration.y,
+      );
       currentDraggingElement.current.style.setProperty('--gridstack-draggable-width', toPx(width));
       currentDraggingElement.current.style.setProperty(
         '--gridstack-draggable-height',
@@ -75,7 +83,7 @@ export const useDraggable = () => {
       element?.appendChild(currentClonedElement.current);
       currentDraggingElement.current.setAttribute('aria-grabbed', 'true');
     },
-    [createClone, element],
+    [createClone, element, item],
   );
 
   const stopDrag = useCallback((event: MouseEvent) => {
@@ -111,7 +119,14 @@ export const useDraggable = () => {
       const moveX = mouseX - originalGrabbedCoordinates.current.x;
       const moveY = mouseY - originalGrabbedCoordinates.current.y;
 
-      console.log(closestGridCoordinates.grid);
+      currentClonedElement.current.setAttribute(
+        'gridstack-x',
+        closestGridCoordinates.grid.x.toString(),
+      );
+      currentClonedElement.current.setAttribute(
+        'gridstack-y',
+        closestGridCoordinates.grid.y.toString(),
+      );
 
       currentClonedElement.current.style.setProperty(
         'top',
