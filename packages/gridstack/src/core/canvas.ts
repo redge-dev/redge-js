@@ -27,11 +27,12 @@ export const createCanvas = ({
   container,
   configuration,
   renderer: createRenderer = createDOMRenderer,
-}: CreateCanvasParams) => {
+}: CreateCanvasParams = {}) => {
   const utils = createUtils({ container, configuration });
   const renderer = createRenderer({ utils });
 
   return {
     utils,
+    renderer,
   };
 };

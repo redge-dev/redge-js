@@ -1,7 +1,7 @@
 import type { CanvasConfiguration } from './canvas';
 
 export type CreateUtilsParams = {
-  configuration: CanvasConfiguration;
+  configuration?: Partial<CanvasConfiguration>;
   container?: {
     /**
      * @default 500
@@ -17,21 +17,28 @@ export type CreateUtilsParams = {
 export type GridStackUtils = ReturnType<typeof createUtils>;
 
 export const createUtils = ({
-  configuration,
+  configuration = { rows: 12, columns: 12 },
   container: { width: containerWidth } = { width: 500, height: 500 },
-}: CreateUtilsParams) => {
+}: CreateUtilsParams = {}) => {
   const utils = {
     fromNumberToPx: (px: number) => `${isNaN(px) ? 0 : px}px`,
     fromPxToNumber: (px: string) => parseFloat(px.replaceAll('px', '')),
     fromPositionToGridCoordinates: (top: number, left: number) => void 0,
+    defaultTo: <T>(value: T | undefined, fallback: T): T =>
+      typeof value === 'undefined' ? fallback : value,
     getCellSize: () =>
-      containerWidth / configuration.columns -
-      Math.max(0, configuration.columns - 1) * configuration.gutter,
+      containerWidth / utils.defaultTo(configuration.columns, 12) -
+      Math.max(0, utils.defaultTo(configuration.columns, 12) - 1) *
+        utils.defaultTo(configuration.gutter, 8),
     fromGridCoordinatesToPosition: (row: number, column: number) => {
       const cellSize = utils.getCellSize();
       return {
-        top: Math.max(0, row - 1) * cellSize + Math.max(0, row - 1) * configuration.gutter,
-        left: Math.max(0, column - 1) * cellSize + Math.max(0, column - 1) * configuration.gutter,
+        top:
+          Math.max(0, row - 1) * cellSize +
+          Math.max(0, row - 1) * utils.defaultTo(configuration.gutter, 8),
+        left:
+          Math.max(0, column - 1) * cellSize +
+          Math.max(0, column - 1) * utils.defaultTo(configuration.gutter, 8),
       };
     },
     measure: (element: HTMLElement) => {
