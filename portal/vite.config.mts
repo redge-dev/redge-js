@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
   root: import.meta.dirname,
-  cacheDir: '../node_modules/.vite/playground',
+  cacheDir: '../node_modules/.vite/portal',
   server: {
     port: 4200,
     host: 'localhost',
@@ -22,8 +22,8 @@ export default defineConfig(() => ({
   // },
   build: {
     emptyOutDir: true,
+    outDir: '../dist/portal',
     reportCompressedSize: true,
-    outDir: '../dist/playground',
     commonjsOptions: {
       transformMixedEsModules: true,
     },

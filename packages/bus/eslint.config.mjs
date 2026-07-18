@@ -5,12 +5,15 @@ export default [
   ...nx.configs['flat/react'],
   ...baseConfig,
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     // Override or add rules here
     rules: {},
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
   },
   {
     files: ['**/*.json'],
+    languageOptions: {
+      parser: await import('jsonc-eslint-parser'),
+    },
     rules: {
       '@nx/dependency-checks': [
         'error',
@@ -21,9 +24,6 @@ export default [
           ],
         },
       ],
-    },
-    languageOptions: {
-      parser: await import('jsonc-eslint-parser'),
     },
   },
 ];
