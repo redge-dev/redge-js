@@ -5,4 +5,6 @@ node_modules
 *.log
 vite.config.*.timestamp*
 
+.env
+
 storybook-static

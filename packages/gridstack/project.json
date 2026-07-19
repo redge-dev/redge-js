@@ -1,9 +1,0 @@
-{
-  "name": "gridstack",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/gridstack/src",
-  "projectType": "library",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project react --web",
-  "targets": {}
-}
