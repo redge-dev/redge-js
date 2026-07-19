@@ -1,21 +1,19 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig.json",
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../dist/out-tsc",
-    "types": [
-      "node",
-      "../node_modules/vite/client"
-    ]
+    "types": ["node"]
   },
   "exclude": [
-    "src/**/*.spec.ts",
+    "**/*.spec.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.tsx",
     "src/**/*.test.tsx",
     "src/**/*.spec.js",
     "src/**/*.test.js",
     "src/**/*.spec.jsx",
-    "src/**/*.test.jsx",
+    "src/**/*.test.jsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

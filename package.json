@@ -5,7 +5,8 @@
   "scripts": {
     "nx": "nx",
     "dev": "nx run-many -t dev",
-    "format": "eslint . --fix"
+    "format": "eslint . --fix",
+    "backend:db:gen": "pnpm dlx auth@latest generate --output \"./redge/backend/src/models/auth.ts\" --config \"./redge/backend/src/integrations/auth/index.ts\" "
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
