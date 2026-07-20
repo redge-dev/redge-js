@@ -1,1 +1,0 @@
-{"version":3,"file":"context.d.ts","sourceRoot":"","sources":["../../../../packages/gridstack/src/gridstack/context.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,sBAAsB,EAAE,MAAM,SAAS,CAAC;AAEtD,MAAM,MAAM,iBAAiB,GAAG;IAC9B,aAAa,EAAE,sBAAsB,CAAC;CACvC,CAAC;AAEF,eAAO,MAAM,gBAAgB,wDAA0D,CAAC"}

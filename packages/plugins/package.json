@@ -1,0 +1,17 @@
+{
+  "name": "@redgejs/plugins",
+  "type": "module",
+  "version": "0.0.0",
+  "keywords": [
+    "vite-plugin"
+  ],
+  "exports": {
+    "./vite": "./src/vite/index.ts"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "20.19.9",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {}
+}
